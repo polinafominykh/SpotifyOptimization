@@ -1,0 +1,37 @@
+paths:
+  raw_data: data/raw/spotify_tracks.csv
+  artists_features: data/processed/artists_features.csv
+  similarity_matrix: data/processed/similarity_matrix.csv
+
+festival:
+  n_artists: 200
+  n_scenes: 3
+  n_slots: 6
+  budget: 700000
+
+appeal_score:
+  popularity_weight: 0.45
+  energy_weight: 0.25
+  danceability_weight: 0.20
+  tracks_count_weight: 0.10
+
+cost:
+  base_cost: 3000
+  popularity_coef: 350
+  appeal_coef: 150
+  noise_std: 1500
+
+experiments:
+  n_runs: 10
+  max_iterations: 300
+  random_seed: 42
+
+objective_weights:
+  appeal: 1.0
+  diversity: 0.4
+  flow: 0.3
+  conflict: 0.6
+  budget_penalty: 10.0
+  duplicate_penalty: 100.0
+  headliner_penalty: 30.0
+  invalid_artist_penalty: 100.0
