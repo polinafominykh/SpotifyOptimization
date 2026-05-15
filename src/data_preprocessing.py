@@ -48,8 +48,8 @@ def load_config() -> dict:
         "festival": {
             "n_artists": 200,
             "n_scenes": 3,
-            "n_slots": 8,
-            "budget": 300000,
+            "n_slots": 6,
+            "budget": 700000,
         },
         "appeal_score": {
             "popularity_weight": 0.45,
@@ -398,17 +398,7 @@ def add_cost_duration_headliner(artists_df: pd.DataFrame, config: dict) -> pd.Da
     df["cost"] = df["cost"].clip(lower=cost_config["base_cost"])
     df["cost"] = df["cost"].round(0).astype(int)
 
-    headliner_threshold = df["appeal_score"].quantile(0.90)
-    df["is_headliner"] = (df["appeal_score"] >= headliner_threshold).astype(int)
-
-    conditions = [
-        df["is_headliner"] == 1,
-        df["appeal_score"] >= df["appeal_score"].quantile(0.70),
-        df["appeal_score"] >= df["appeal_score"].quantile(0.35),
-    ]
-
-    choices = [90, 75, 60]
-    df["duration_minutes"] = np.select(conditions, choices, default=45)
+    df["duration_minutes"] = 60
 
     return df
 
@@ -430,6 +420,21 @@ def select_candidate_artists(artists_df: pd.DataFrame, config: dict) -> pd.DataF
     )
 
     candidates_df["artist_id"] = np.arange(len(candidates_df))
+
+    headliner_threshold = candidates_df["appeal_score"].quantile(0.90)
+
+    candidates_df["is_headliner"] = (
+            candidates_df["appeal_score"] >= headliner_threshold
+    ).astype(int)
+
+    conditions = [
+        candidates_df["is_headliner"] == 1,
+        candidates_df["appeal_score"] >= candidates_df["appeal_score"].quantile(0.70),
+        candidates_df["appeal_score"] >= candidates_df["appeal_score"].quantile(0.35),
+    ]
+
+    choices = [90, 75, 60]
+    candidates_df["duration_minutes"] = np.select(conditions, choices, default=45)
 
     final_columns = [
         "artist_id",
@@ -484,7 +489,8 @@ def build_similarity_matrix(artists_df: pd.DataFrame) -> pd.DataFrame:
 
     similarity = cosine_similarity(feature_matrix_scaled)
 
-    genres = artists_df["main_genre"].values
+    genres = artists_df["main_genre"].astype(str).to_numpy()
+
     genre_bonus = (genres[:, None] == genres[None, :]).astype(float) * 0.15
 
     similarity = np.clip(similarity + genre_bonus, 0, 1)
