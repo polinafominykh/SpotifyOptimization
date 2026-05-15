@@ -1,0 +1,69 @@
+Spotify Festival Optimization — Data Summary
+======================================================================
+
+Tracks dataset
+----------------------------------------------------------------------
+Clean tracks shape: (122849, 13)
+Unique artists in tracks: 29755
+Unique genres in tracks: 113
+
+Artists candidates dataset
+----------------------------------------------------------------------
+Artists shape: (200, 18)
+Headliners count: 200
+Average appeal score: 69.17
+Average cost: 37205.75
+Total estimated cost: 7441149.00
+
+Similarity matrix
+----------------------------------------------------------------------
+Similarity matrix shape: (200, 200)
+
+Top 20 artists by appeal score
+----------------------------------------------------------------------
+ artist_id              artist_name        main_genre  appeal_score  cost  is_headliner
+         0                      IVE             k-pop     76.430374 40938             1
+         1                 Chimbala            latino     75.974112 42865             1
+         2                     ITZY             k-pop     75.747702 39631             1
+         3                    TWICE             k-pop     75.323279 39119             1
+         4               Stray Kids             k-pop     75.229787 40733             1
+         5             Harry Styles               pop     74.991568 46906             1
+         6                   FISHER             disco     74.981022 40581             1
+         7                Tiago PZK            latino     74.922120 39968             1
+         8                   Kep1er             k-pop     74.714513 42175             1
+         9              LE SSERAFIM             k-pop     74.674158 40859             1
+        10 Selena Gomez & The Scene             dance     74.493084 41547             1
+        11                 Måneskin         indie-pop     74.036560 42990             1
+        12                Lil Nas X           hip-hop     73.674072 42539             1
+        13                   Shouse             house     73.403205 41761             1
+        14            Calvin Harris progressive-house     73.335946 39802             1
+        15                      BTS             k-pop     73.266860 39931             1
+        16                  TV Girl         indie-pop     73.234855 41289             1
+        17                   Eminem          hardcore     73.082687 40402             1
+        18                     Mora            latino     72.889330 43741             1
+        19                  Dr. Dre              funk     72.575908 38266             1
+
+Top genres
+----------------------------------------------------------------------
+main_genre
+k-pop                27
+hip-hop              20
+pop                  13
+dance                12
+disco                10
+latino                9
+edm                   7
+pop-film              7
+hardcore              6
+techno                5
+alt-rock              5
+electronic            5
+indie-pop             5
+dancehall             4
+progressive-house     3
+house                 3
+deep-house            3
+latin                 3
+swedish               3
+hard-rock             3
+Name: count, dtype: int64
